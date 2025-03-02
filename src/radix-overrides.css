@@ -1,0 +1,153 @@
+/* Fix full width body issues */
+html, body, #root {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+/* Make sure all direct children of #root are full width */
+#root > * {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Add stronger selectors to override conflicting styles */
+.rt-Container {
+  width: 100%;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.rt-Box, .rt-Flex, .rt-Text {
+  position: relative;
+}
+
+/* Custom aspect ratio solution (no plugin needed) */
+.aspect-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
+}
+
+.aspect-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add more specificity to Radix text elements */
+.rt-TextArea[data-accent-color="pink"] {
+  --accent-9: hsl(336 73% 53%);
+}
+
+/* Fix navigation menu styling */
+.rt-reset [data-radix-navigation-menu-viewport] {
+  z-index: 100;
+}
+
+/* Only add padding to sections that need it */
+.content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Fix section padding */
+.rt-Section {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Temporary debug - remove after fixing layout */
+.debug-layout * {
+  outline: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.debug-layout .rt-Container {
+  outline: 2px solid rgba(0, 0, 255, 0.3);
+}
+
+.debug-layout .content-container {
+  outline: 2px solid rgba(0, 255, 0, 0.3);
+}
+
+/* Mobile navigation styles */
+.mobile-nav-trigger {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-nav-trigger:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile dropdown menu styling */
+[data-radix-dropdown-menu-content] {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+[data-radix-dropdown-menu-content] a {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Make dropdown items more touch-friendly */
+[data-radix-dropdown-menu-content] [data-radix-dropdown-menu-item] {
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
+/* Floating mobile menu button styling */
+.mobile-menu-floating {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mobile-menu-floating:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Add animation for mobile dropdown menu */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+[data-radix-dropdown-menu-content] {
+  animation: slideInDown 0.2s ease-out;
+} 

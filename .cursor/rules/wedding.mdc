@@ -1,0 +1,94 @@
+---
+description: frontend rules
+globs: 
+---
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
+
+description: >
+  This rule enforces mobile and desktop compatibility for UI components built with React (Vite) 
+  and styled using Tailwind CSS. It ensures a mobile-first approach with responsive design principles 
+  and best coding practices across the project.
+
+match:
+  - "**/*.tsx"
+  - "**/*.jsx"
+  - "tailwind.config.js"
+  - "vite.config.js"
+
+instructions: |
+  1. Use Tailwind CSS utility classes to implement responsive, mobile-first designs.
+  2. Apply responsive prefixes (e.g., sm:, md:, lg:, xl:) to adjust layouts across different screen sizes.
+  3. Ensure that all React components are modular, reusable, and follow best practices.
+  4. Validate that UI components render correctly on both mobile and desktop devices.
+  5. Keep the Tailwind and Vite configuration files in sync with your design system and build process.
+  6. Write clear code comments to explain responsive design choices and configurations.
+
+references:
+  - "@file tailwind.config.js"
+  - "@file vite.config.js"
+
+
+网站内容
+1. 照片：待定。Share了一个apple album，可以先参考里面的照片。
+
+2. 封面：时间、地点、人名
+Jiaying & Hao ’s 3 year Vow Renewal 
+May 15, 2025
+Grand Island Mansion, California
+
+3. 问卷（我觉得不需要翻译成英文，就全部写中文就行）
+1）姓名 （如果有家属一起参加，请一人填写一份）
+2）电话号码
+3） 邮箱
+4）2025.5.15日00pm可以来参加吗？
+5）请选择菜单：A. 牛肉 B. 鱼肉 C. 素食
+6） 食物过敏/禁忌
+7）15日当晚我们会提供庄园内部的一晚住宿，请问你需要需要吗？（由于房间有限，我们会优先安排外地和住的远的朋友，但本地朋友会尽量安排）
+8）请留下一首你想在我们婚礼播放的歌吧（Spotify）（oop
+9）点击链接跳转我们的婚礼基金（我想的是放一个venmo zelle二维码），基金尽量保证）想住的朋友都可以）
+
+
+1. 其他信息（可以后续补充，主要是婚礼当天大家扫码可以看的）
+- [ ] 婚礼流程
+- [ ] 衣着建议
+- [ ] 座位表购物
+
+
+照片待定
+- [ ] 照
+    - [ ] 夏
+        - [ ] Banff
+        - [ ] 巴黎
+    - [ ] 秋
+        - [ ] 多伦多
+        - [ ] LA
+    - [ ] 冬
+春  
+
+- [ ] 请柬 - 电子版
+    - [ ] 封面：人名+地点+时间
+    - [ ] 流程
+    - [ ] Dress Code
+- [ ] 网站
+    - [ ] 照片
+    - [ ] 问题
+        - [ ] 姓名，电话，邮箱
+        - [ ] 可以来参加吗
+        - [ ] 吃什么
+        - [ ] 食物过敏
+        - [ ] 住宿
+        - [ ] 选一首歌
+        - [ ] 婚礼基金
+    - [ ] 参考信息
+        - [ ] 婚礼流程
+        - [ ] 衣着建议
+        - [ ] 座位表 - 电子版
+
+- [ ] 纸品flat lay
+    - [ ] 誓言卡
+- [ ] 签到卡
+- [ ] 感谢卡
