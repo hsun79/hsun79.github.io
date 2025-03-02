@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Container, Section, Grid, Flex, Heading, Text } from "@radix-ui/themes";
+import { Container, Section, Grid, Flex, Heading } from "@radix-ui/themes";
 
 const Details = () => {
   return (
