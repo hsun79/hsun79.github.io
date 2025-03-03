@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../components/ui/dialog";
+import MenuHoverCard from "@/components/ui/MenuHoverCard";
+import MusicSearch from "@/components/ui/MusicSearch";
 
 const RSVP = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -14,6 +16,7 @@ const RSVP = () => {
     allergies: "",
     accommodation: "",
     song: "",
+    songData: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -110,7 +113,7 @@ const RSVP = () => {
               <>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="meal">
-                    请选择菜单
+                    <span className="flex justify-center items-center gap-1">请选择菜单<MenuHoverCard /></span>
                   </label>
                   <select
                     id="meal"
@@ -163,16 +166,18 @@ const RSVP = () => {
                 
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="song">
-                    请留下一首你想在我们婚礼播放的歌
+                    有喜欢的歌曲吗？
                   </label>
-                  <input
-                    type="text"
-                    id="song"
-                    name="song"
+                  <MusicSearch 
                     value={formData.song}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded-md"
-                    placeholder="请输入歌曲名称（Spotify）"
+                    onSelect={(track) => {
+                      setFormData(prev => ({ 
+                        ...prev, 
+                        song: `${track.name} - ${track.artists[0].name}`,
+                        songData: JSON.stringify(track)
+                      }));
+                    }}
+                    placeholder="搜索歌曲..."
                   />
                 </div>
               </>

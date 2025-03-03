@@ -1,3 +1,6 @@
+/* Import our theme variables */
+@import './theme-variables.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -109,11 +112,37 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--primary-paragraphs);
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: var(--button-background);
+}
+
+/* Special link styles for important links */
+.accent-link {
+  color: var(--button-background);
+}
+
+.accent-link:hover {
+  color: var(--button-background-hover);
+}
+
+/* Menu links */
+nav a {
+  color: var(--primary-paragraphs);
+}
+
+nav a:hover,
+nav a:focus {
+  color: var(--button-background);
+}
+
+/* Ensure active nav links use button background color */
+nav a.active {
+  color: var(--button-background);
+  font-weight: 700;
 }
 
 body {
@@ -122,26 +151,42 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Libre Baskerville', serif;
+  background-color: var(--primary-background);
+  color: var(--primary-paragraphs);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  letter-spacing: 0.025em;
+  font-family: 'Libre Baskerville', serif;
 }
 
-button {
+.font-heading {
+  font-family: 'Libre Baskerville', serif;
+  letter-spacing: 0.05em;
+}
+
+button, 
+.button,
+.btn {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button-background);
   cursor: pointer;
   transition: border-color 0.25s;
+  color: var(--button-text);
 }
-button:hover {
-  border-color: #646cff;
+button:hover,
+.button:hover,
+.btn:hover {
+  border-color: var(--primary-headings) !important;
+  background-color: var(--button-background-hover);
+  color: var(--button-text-hover);
 }
 button:focus,
 button:focus-visible {
@@ -150,17 +195,167 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--primary-paragraphs);
+    background-color: var(--primary-background);
   }
+  
   a:hover {
-    color: #747bff;
+    color: var(--button-background-hover);
   }
+  
   button {
-    background-color: #f9f9f9;
+    background-color: var(--button-background);
+  }
+  
+  button:hover,
+  .button:hover,
+  .btn:hover {
+    background-color: var(--button-background-hover);
+    color: var(--button-text-hover);
+    border-color: var(--accent-details);
   }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Remove bullet points from lists */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* If you only want to remove them for navigation menus */
+nav ul, 
+.navigation-menu ul,
+header ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* Apply Libre Baskerville to all text by default */
+body {
+  font-family: 'Libre Baskerville', serif;
+}
+
+/* Make headings extra elegant */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  letter-spacing: 0.025em;
+  font-family: 'Libre Baskerville', serif;
+}
+
+/* Update font styles */
+.font-heading {
+  font-family: 'Libre Baskerville', serif;
+  letter-spacing: 0.05em;
+}
+
+/* Replace existing Gilda Display styles */
+.elegant-heading {
+  font-family: 'Libre Baskerville', serif;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+.elegant-text {
+  font-family: 'Libre Baskerville', serif;
+  line-height: 1.8;
+}
+
+.uppercase-spaced {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.9em;
+}
+
+/* Libre Baskerville font classes */
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.libre-baskerville-bold {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.libre-baskerville-regular-italic {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Stronger button hover styles to override any competing styles */
+button:hover,
+.button:hover,
+.btn:hover {
+  background-color: var(--button-background-hover) !important;
+  color: var(--button-text-hover) !important;
+  border-color: var(--accent-details) !important;
+}
+
+.rt-Button:hover {
+  background-color: var(--button-background-hover) !important;
+  color: var(--button-text-hover) !important;
+}
+
+/* Navbar specific styling */
+.navbar-background {
+  background-color: var(--accent-background);
+  border-bottom: 1px solid var(--accent-details);
+}
+
+header {
+  background-color: var(--accent-background);
+}
+
+/* Dropdown menu styling */
+.dropdown-menu-content {
+  background-color: var(--accent-background) !important;
+  border: 1px solid var(--accent-details) !important;
+}
+
+/* Make active navigation links bold with higher specificity */
+nav a.active,
+.NavigationMenuLink.active,
+a[aria-current="page"] {
+  font-weight: 700 !important;
+  color: var(--button-background) !important;
+}
+
+/* Also apply to dropdown menu items */
+.dropdown-menu-item.active {
+  font-weight: 700 !important;
+  color: var(--button-background) !important;
+}
+
+/* Navigation font styling */
+.navigation-text {
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+}
+
+/* Main navigation styling */
+.main-navigation {
+  font-family: 'Libre Baskerville', serif;
+}
+
+.main-navigation a {
+  font-size: 1.05rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.dropdown-menu-content a {
+  font-size: 1.05rem;
 }

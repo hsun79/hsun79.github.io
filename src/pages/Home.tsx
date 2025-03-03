@@ -1,20 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Button as RadixButton, Flex, Text, Card, Box, Container, Section, Heading } from "@radix-ui/themes";
+import { Flex, Text, Box, Container, Section, Heading } from "@radix-ui/themes";
 import { Hero } from "@/components/ui/hero";
 
 // You can create a Logo component or use an image
 const Logo = () => (
   <div className="text-center px-4 py-8 bg-black bg-opacity-20 backdrop-blur-sm rounded-lg">
-    <h1 className="text-5xl md:text-6xl font-light text-white mb-4 drop-shadow-lg">
-      Jiaying & Hao
+    <h1 className="text-5xl md:text-6xl libre-baskerville-regular tracking-wider text-white mb-4 drop-shadow-lg">
+      Kristen & Hao
     </h1>
-    <p className="text-lg md:text-xl text-white drop-shadow-md">
+    <p className="text-lg md:text-xl tracking-wide text-white drop-shadow-md">
       May 15, 2025 • Grand Island Mansion, California
     </p>
     <div className="mt-8">
       <Link to="/rsvp">
-        <Button size="lg" className="bg-white text-black hover:bg-pink-50">
+        <Button size="lg" className="bg-white text-black hover:bg-pink-50 font-light tracking-wider">
           RSVP Now
         </Button>
       </Link>
@@ -51,9 +51,9 @@ const Home = () => {
           <div className="content-container py-8">
             <Flex direction="column" align="center" gap="6">
               <Box className="text-center">
-                <Heading as="h1" size="8" weight="light" className="text-gray-800">Jiaying & Hao</Heading>
-                <Heading as="h2" size="6" weight="light" className="text-gray-700 mt-2">3 Year Vow Renewal</Heading>
-                <Text size="5" className="text-gray-600 mt-2 block">May 15, 2025 • Grand Island Mansion, California</Text>
+                <Heading as="h1" size="8" weight="light" className="libre-baskerville-regular text-gray-800">Kristen & Hao</Heading>
+                <Heading as="h2" size="6" weight="light" className="libre-baskerville-regular text-gray-700 mt-2">3 Year Vow Renewal</Heading>
+                <Text size="5" className="libre-baskerville-regular text-gray-600 mt-2 block">May 15, 2025 • Grand Island Mansion, California</Text>
               </Box>
               
               <Box className="w-full max-w-4xl">
@@ -82,19 +82,6 @@ const Home = () => {
                   </Button>
                 </Link>
               </Flex>
-              
-              <Box mt="9" className="w-full max-w-xl">
-                <Card size="3">
-                  <Flex direction="column" gap="4" align="center" p="4">
-                    <Heading size="5">Radix UI Themes Example</Heading>
-                    <Text>这里展示了 Radix UI Themes 的组件样式</Text>
-                    <Flex gap="4">
-                      <RadixButton size="3" color="pink">Radix Button</RadixButton>
-                      <RadixButton size="3" variant="outline">另一个样式</RadixButton>
-                    </Flex>
-                  </Flex>
-                </Card>
-              </Box>
             </Flex>
           </div>
         </Container>

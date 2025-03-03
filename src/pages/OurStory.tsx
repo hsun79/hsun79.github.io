@@ -12,7 +12,7 @@ const OurStory = () => {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              [这里可以放你们相遇的故事]
+              [相遇的故事]
             </p>
           </CardContent>
         </Card>
@@ -23,7 +23,7 @@ const OurStory = () => {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              [这里可以放你们恋爱的点滴]
+              [恋爱的点滴]
             </p>
           </CardContent>
         </Card>
@@ -34,7 +34,7 @@ const OurStory = () => {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              [这里可以放你们婚礼的回忆]
+              [婚礼的回忆]
             </p>
           </CardContent>
         </Card>
@@ -45,7 +45,7 @@ const OurStory = () => {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              [这里可以放你们婚后三年的美好时光]
+              [婚后三年的美好时光]
             </p>
           </CardContent>
         </Card>

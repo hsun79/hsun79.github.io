@@ -1,0 +1,52 @@
+/* Custom styles for Radix UI components */
+.radix-themes {
+  --default-font-family: 'Libre Baskerville', serif !important;
+  
+  /* Override Radix Theme colors with our custom theme */
+  --color-panel-solid: var(--primary-background) !important;
+  --color-surface: var(--accent-background) !important;
+  
+  --gray-1: var(--accent-background) !important;
+  --gray-2: var(--primary-background) !important;
+  --gray-3: var(--primary-details) !important;
+  --gray-4: var(--accent-details) !important;
+  --gray-6: var(--primary-paragraphs) !important;
+  --gray-10: var(--primary-headings) !important;
+  --gray-12: var(--primary-headings) !important;
+  
+  --accent-9: var(--button-background) !important;
+  --accent-10: var(--button-background-hover) !important;
+  --accent-11: var(--button-background-hover) !important;
+  --accent-12: var(--button-text) !important;
+}
+
+/* Override specific Radix components if needed */
+.rt-Text, 
+.rt-Heading, 
+.rt-Button {
+  font-family: 'Libre Baskerville', serif !important;
+}
+
+/* Default button styles */
+.rt-Button {
+  background-color: var(--button-background) !important;
+  color: var(--button-text) !important;
+}
+
+.rt-Button:hover {
+  background-color: var(--button-background-hover) !important;
+  color: var(--button-text-hover) !important;
+}
+
+/* ShadCN Ghost button styles */
+button[data-variant="ghost"],
+.ghost-button {
+  background-color: transparent !important;
+  color: var(--primary-paragraphs) !important;
+}
+
+button[data-variant="ghost"]:hover,
+.ghost-button:hover {
+  background-color: var(--accent-details) !important;
+  color: var(--primary-headings) !important;
+} 

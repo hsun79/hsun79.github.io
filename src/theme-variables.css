@@ -1,0 +1,50 @@
+:root {
+  /* Primary colors */
+  --primary-background: #F9F7F1;
+  --primary-headings: #4C4C4C;
+  --primary-paragraphs: #4C4C4C;
+  --primary-details: #E6E2D5;
+  
+  /* Accent colors */
+  --accent-background: #FDFCFA;
+  --accent-headings: #4C4C4C;
+  --accent-paragraphs: #4C4C4C;
+  --accent-details: #E6E2D5;
+  
+  /* Button colors */
+  --button-background: #60656C;
+  --button-text: #FFFFFF;
+  --button-background-hover: #B6B1A4;
+  --button-text-hover: #FFFFFF;
+  
+  /* Tailwind CSS variables */
+  --background: 48 30% 96%;
+  --foreground: 0 0% 30%;
+  
+  --card: 40 33% 98%;
+  --card-foreground: 0 0% 30%;
+  
+  --popover: 40 33% 98%;
+  --popover-foreground: 0 0% 30%;
+  
+  --primary: 220 7% 40%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 38 18% 86%;
+  --secondary-foreground: 0 0% 30%;
+  
+  --muted: 38 18% 90%;
+  --muted-foreground: 0 0% 45%;
+  
+  --accent: 38 12% 86%;
+  --accent-foreground: 0 0% 30%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 38 18% 86%;
+  --input: 38 18% 86%;
+  --ring: 38 18% 76%;
+  
+  --radius: 0.5rem;
+} 

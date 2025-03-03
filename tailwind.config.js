@@ -18,27 +18,27 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: "var(--primary-background)",
+        foreground: "var(--primary-paragraphs)",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--button-background)",
+          foreground: "var(--button-text)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "var(--primary-details)",
+          foreground: "var(--primary-paragraphs)",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "var(--primary-details)",
+          foreground: "var(--primary-paragraphs)",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "var(--accent-details)",
+          foreground: "var(--accent-paragraphs)",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -47,6 +47,24 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        gray: {
+          100: "var(--accent-background)",
+          200: "var(--primary-details)",
+          300: "var(--accent-details)",
+          400: "#b6b1a4",
+          500: "#8e8a7e",
+          600: "var(--primary-paragraphs)",
+          700: "#3a3a3a",
+          800: "#2a2a2a",
+          900: "#1a1a1a",
+        },
+        pink: {
+          50: "var(--accent-background)",
+          100: "var(--primary-details)",
+          200: "var(--accent-details)",
+          600: "var(--button-background)",
+          800: "var(--button-background-hover)",
         },
       },
       borderRadius: {
@@ -67,6 +85,11 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        sans: ['Libre Baskerville', 'serif'],
+        display: ['Libre Baskerville', 'serif'],
+        heading: ['Libre Baskerville', 'serif'],
       },
     },
   },
