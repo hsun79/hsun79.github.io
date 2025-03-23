@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { searchSpotify } from '@/utils/spotify';
-import { Search, Music } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 type Track = {
   id: string;
@@ -23,7 +23,7 @@ const MusicSearch = ({ onSelect, placeholder = "请输入歌曲名称", value = 
   const [results, setResults] = useState<Track[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+  const [_, setSelectedTrack] = useState<Track | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Handle clicks outside to close the dropdown

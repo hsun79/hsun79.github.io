@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { InfoIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,23 +42,43 @@ const translations = {
 
 const MenuHoverCard = ({}: MenuHoverCardProps) => {
   const [language, setLanguage] = useState<'en' | 'cn'>('en');
+  const [isOpen, setIsOpen] = useState(false);
+  const hoverCardRef = useRef<HTMLDivElement>(null);
   
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'en' ? 'cn' : 'en');
   };
   
+  // Handle clicks outside to close the hover card on mobile
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (hoverCardRef.current && !hoverCardRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
   const t = translations[language];
   
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <div className="flex items-center gap-1 cursor-help">
-          <InfoIcon className="h-4 w-4 text-[color:var(--button-background)]" />
-        </div>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-80 p-4 bg-[color:var(--accent-background)] border border-[color:var(--accent-details)]">
-      <div className="flex justify-between items-center mb-2">
-          <div className="w-[60px]"></div> {/* Empty div with same width as button */}
+    <div ref={hoverCardRef}>
+      <HoverCard open={isOpen} onOpenChange={setIsOpen}>
+        <HoverCardTrigger asChild>
+          <div 
+            className="flex items-center gap-1 cursor-help"
+            onClick={() => setIsOpen(prev => !prev)}
+          >
+            <InfoIcon className="h-4 w-4 text-[color:var(--button-background)]" />
+          </div>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-80 p-4 bg-[color:var(--accent-background)] border border-[color:var(--accent-details)]">
+          <div className="flex justify-between items-center mb-2">
+            <div className="w-[60px]"></div> {/* Empty div with same width as button */}
             <h4 className="font-semibold text-[color:var(--primary-headings)]">{t.menuOptions}</h4>
             <Button 
               variant="ghost" 
@@ -73,22 +93,23 @@ const MenuHoverCard = ({}: MenuHoverCardProps) => {
               {language === 'en' ? 'CN' : 'EN'}
             </Button>
           </div>
-        <div className="space-y-3">
-          <div>
-            <p className="font-bold">{t.option1.title}</p>
-            <p className="text-sm">{t.option1.description}</p>
+          <div className="space-y-3">
+            <div>
+              <p className="font-bold">{t.option1.title}</p>
+              <p className="text-sm">{t.option1.description}</p>
+            </div>
+            <div>
+              <p className="font-bold">{t.option2.title}</p>
+              <p className="text-sm">{t.option2.description}</p>
+            </div>
+            <div>
+              <p className="font-bold">{t.option3.title}</p>
+              <p className="text-sm">{t.option3.description}</p>
+            </div>
           </div>
-          <div>
-            <p className="font-bold">{t.option2.title}</p>
-            <p className="text-sm">{t.option2.description}</p>
-          </div>
-          <div>
-            <p className="font-bold">{t.option3.title}</p>
-            <p className="text-sm">{t.option3.description}</p>
-          </div>
-        </div>
-      </HoverCardContent>
-    </HoverCard>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
   );
 };
 

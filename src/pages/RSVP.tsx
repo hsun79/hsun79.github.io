@@ -166,7 +166,7 @@ const RSVP = () => {
                 
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="song">
-                    有喜欢的歌曲吗？
+                    请选择一首您想在婚礼上听到的歌曲
                   </label>
                   <MusicSearch 
                     value={formData.song}

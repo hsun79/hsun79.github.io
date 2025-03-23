@@ -1,0 +1,26 @@
+.pos-rel {
+  position: relative;
+}
+
+.carousel-slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-slider--wrapper {
+  overflow: visible !important; /* Override to show adjacent slides */
+}
+
+.carousel-slider__photo-container-wrapper.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Touch-friendly controls for mobile */
+@media (max-width: 768px) {
+  .carousel-slider__btn-prev,
+  .carousel-slider__btn-next {
+    width: 36px;
+    height: 36px;
+  }
+} 

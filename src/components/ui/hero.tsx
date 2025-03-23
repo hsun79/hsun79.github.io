@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface HeroProps {
-  imageUrl: string;
+  image: string;
   overlayContent?: React.ReactNode;
   height?: string;
   className?: string;
 }
 
 export function Hero({ 
-  imageUrl, 
+  image, 
   overlayContent, 
   height = "100vh", 
   className 
@@ -46,7 +46,7 @@ export function Hero({
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center" 
         style={{ 
-          backgroundImage: `url(${imageUrl})`,
+          backgroundImage: `url(${image})`,  
           transform: `translateY(${scrollPosition}px)`, 
           transition: 'transform 0.1s ease-out',
         }}
