@@ -38,16 +38,18 @@ const MainLayout = () => {
             <NavigationMenu className="hidden md:flex">
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.path}>
-                  <Link to={item.path}>
-                    <NavigationMenuLink className={cn(
+                  {/*  */}
+                    <NavigationMenuLink asChild className={cn(
                       "px-4 py-2 text-base font-medium focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:outline-none",
                       location.pathname === item.path 
                         ? "text-[color:var(--button-background)] active font-bold"
                         : "text-[color:var(--primary-paragraphs)] hover:text-[color:var(--button-background-hover)]"
                     )}>
-                      {item.name}
+                      <Link to={item.path}>
+                        {item.name}
+                      </Link>
+                      
                     </NavigationMenuLink>
-                  </Link>
                 </NavigationMenuItem>
               ))}
             </NavigationMenu>

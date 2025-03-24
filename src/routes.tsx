@@ -21,9 +21,9 @@ const routes = [
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "our-story", element: <OurStory /> },
-      { path: "details", element: <Details /> },
+      // { path: "our-story", element: <OurStory /> },
       { path: "gallery", element: <Gallery /> },
+      { path: "details", element: <Details /> },
       { path: "rsvp", element: <RSVP /> },
       { path: "registry", element: <Registry /> },
       { path: "gallery/:location", element: <GalleryDetails /> },

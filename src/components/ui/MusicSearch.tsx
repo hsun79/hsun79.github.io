@@ -93,7 +93,7 @@ const MusicSearch = ({ onSelect, placeholder = "请输入歌曲名称", value = 
       </div>
 
       {showResults && results.length > 0 && (
-        <div className="absolute z-50 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-auto">
+        <div className="absolute z-50 w-full bottom-full mb-1 bg-white border rounded-md shadow-lg max-h-60 overflow-auto">
           {results.map((track) => (
             <div
               key={track.id}
@@ -119,7 +119,7 @@ const MusicSearch = ({ onSelect, placeholder = "请输入歌曲名称", value = 
       )}
 
       {showResults && query && results.length === 0 && !isLoading && (
-        <div className="absolute z-50 w-full mt-1 bg-white border rounded-md shadow-lg p-3 text-center text-gray-500">
+        <div className="absolute z-50 w-full bottom-full mb-1 bg-white border rounded-md shadow-lg p-3 text-center text-gray-500">
           没有找到相关歌曲
         </div>
       )}

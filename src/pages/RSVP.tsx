@@ -185,7 +185,7 @@ const RSVP = () => {
                 
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="song">
-                    请选择一首您想在婚礼上听到的歌曲
+                    请选择一首您想在婚礼上听到的歌曲，如果搜索不到，可以直接输入歌曲和歌手名
                   </label>
                   <MusicSearch 
                     value={formData.song}
@@ -217,16 +217,18 @@ const RSVP = () => {
       </Card>
       
       <Dialog open={isSubmitted} onOpenChange={setIsSubmitted}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
+
             <DialogTitle>感谢您的回复！</DialogTitle>
             <DialogDescription>
               我们已收到您的RSVP信息，期待在婚礼上见到您。
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button onClick={() => setIsSubmitted(false)}>关闭</Button>
+          <DialogFooter className="flex justify-between">
+            <Button variant="outline" onClick={() => window.location.href = "/registry"}>前往礼物登记</Button>
           </DialogFooter>
+
         </DialogContent>
       </Dialog>
     </div>

@@ -67,7 +67,7 @@ const Home = () => {
               
               <Flex direction="column" align="center" gap="9">
                 {featuredCollection.map((collection) => {
-                  return (<Box className="w-full animate-fade-in-up opacity-0">
+                  return (<Box key={collection.slug} className="w-full animate-fade-in-up opacity-0">
                     <Flex direction="column" align="center" gap="9">
                       <SimpleImageCarousel 
                         images={collection.images}

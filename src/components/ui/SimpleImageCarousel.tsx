@@ -17,7 +17,6 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
   className = '',
   autoPlay = false,
   autoPlaySpeed = 5000,
-  preloadCount = 3, // Default to preloading 2 images on each side
 }) => {
   // Helper function to get images with wrap-around for building the buffer
   const getImageWithWrap = (index: number) => {
@@ -61,15 +60,6 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
       sliderRef.current.style.transition = 'none';
       setCurrentIndex(bufferCount);
       
-      // Preload initial set of images
-      const initialImagesToLoad = new Set<number>();
-      for (let i = currentIndex - preloadCount; i <= currentIndex + preloadCount; i++) {
-        if (i >= 0 && i < extendedImages.length) {
-          initialImagesToLoad.add(i);
-        }
-      }
-      setLoadedImages(initialImagesToLoad);
-      
       // Re-enable transitions after initial positioning
       setTimeout(() => {
         if (sliderRef.current) {
@@ -78,41 +68,8 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
         }
       }, 50);
     }
-  }, [bufferCount, preloadCount, extendedImages.length]);
+  }, [bufferCount, extendedImages.length]);
   
-  // Update loaded images when current index changes
-  useEffect(() => {
-    const newImagesToLoad = new Set(loadedImages);
-    
-    // Basic preloading around current index
-    for (let i = currentIndex - preloadCount; i <= currentIndex + preloadCount; i++) {
-      if (i >= 0 && i < extendedImages.length) {
-        newImagesToLoad.add(i);
-      }
-    }
-    
-    // Also preload the corresponding wrapped images to avoid jumps during loop transitions
-    if (currentIndex < bufferCount + preloadCount) {
-      // Near the beginning - also preload the corresponding end images
-      for (let i = 0; i < preloadCount; i++) {
-        const wrapIndex = images.length + bufferCount + (currentIndex - bufferCount) - i;
-        if (wrapIndex >= 0 && wrapIndex < extendedImages.length) {
-          newImagesToLoad.add(wrapIndex);
-        }
-      }
-    } else if (currentIndex >= bufferCount + images.length - preloadCount) {
-      // Near the end - also preload the corresponding beginning images
-      for (let i = 0; i < preloadCount; i++) {
-        const wrapIndex = bufferCount + ((currentIndex - bufferCount) % images.length) + i;
-        if (wrapIndex >= 0 && wrapIndex < extendedImages.length && wrapIndex < bufferCount + preloadCount) {
-          newImagesToLoad.add(wrapIndex);
-        }
-      }
-    }
-    
-    setLoadedImages(newImagesToLoad);
-  }, [currentIndex, preloadCount, extendedImages.length, images.length, bufferCount]);
-
   const handleSlideChange = (newIndex: number) => {
     if (isTransitioning) return;
     
@@ -226,11 +183,6 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
     setTouchEndX(null);
   };
 
-  // Function to check if an image should be loaded
-  const shouldLoadImage = (idx: number) => {
-    return loadedImages.has(idx);
-  };
-
   // Set up intersection observer to detect when carousel enters viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -285,7 +237,6 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
           {extendedImages.map((image, idx) => {
             // Determine if this is a real slide or a buffer slide
             const isBuffer = idx < bufferCount || idx >= bufferCount + images.length;
-            const shouldLoad = shouldLoadImage(idx);
             
             return (
               <div 
@@ -295,20 +246,12 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
                 }}
                 className="flex-shrink-0 h-full flex items-center justify-center w-fit"
               >
-                {shouldLoad ? (
-                  <img 
-                    src={image} 
-                    alt={`Slide ${isBuffer ? 'buffer' : idx - bufferCount + 1}`}
-                    className="h-full"
-                    aria-hidden={isBuffer ? 'true' : 'false'}
-                  />
-                ) : (
-                  <div 
-                    className="w-24 h-full bg-gray-200 flex items-center justify-center min-w-[200px]"
-                  >
-                    <div className="animate-pulse h-5 w-5 bg-gray-400 rounded-full"></div>
-                  </div>
-                )}
+                <img 
+                   src={image} 
+                   alt={`Slide ${isBuffer ? 'buffer' : idx - bufferCount + 1}`}
+                   className="w-fit h-full object-contain" 
+                   aria-hidden={isBuffer ? 'true' : 'false'}
+                 />
               </div>
             );
           })}

@@ -109,6 +109,8 @@ import TO22 from "@/assets/images/to/TO22.jpg";
 import TO23 from "@/assets/images/to/TO23.jpg";
 import TO24 from "@/assets/images/to/TO24.jpg";
 
+import VenmoQR from "@/assets/images/venmo_qr.jpg";
+
 // Home images
 export const heroImages = {
   desktop: heroImage,
@@ -195,3 +197,5 @@ export const featuredCollection = [
     images: panImages.slice(0, 13),
   }
 ]; 
+
+export const venmoQR = VenmoQR;
