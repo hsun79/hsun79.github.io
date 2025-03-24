@@ -41,7 +41,6 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
   
   const [currentIndex, setCurrentIndex] = useState(bufferCount); // Start at first real image (after buffer)
   const [isTransitioning, setIsTransitioning] = useState(true);
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const sliderRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
