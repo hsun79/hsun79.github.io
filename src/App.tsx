@@ -1,6 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
 import router from './routes'; // Browser router
-import hashRouter from './routes-hash'; // Hash router
+// import hashRouter from './routes-hash'; // Hash router - no longer needed
 import './App.css'
 import './theme-variables.css'; // Import theme variables
 import { Theme } from "@radix-ui/themes";
@@ -10,14 +10,8 @@ import './radix-theme.css'; // Import our theme overrides
 function App() {
   console.log("App rendering");
   
-  // Determine which router to use based on environment
-  const isProduction = import.meta.env.PROD;
-  const isGitHubPages = window.location.hostname === 'hsun79.github.io';
-  
-  // Use hash router in production on GitHub Pages
-  const routerToUse = isProduction && isGitHubPages ? hashRouter : router;
-  
-  console.log("Using router:", isProduction && isGitHubPages ? "Hash Router" : "Browser Router");
+  // Use browser router on Vercel
+  const routerToUse = router;
   
   return (
     <div className="w-full overflow-hidden m-0 p-0" style={{ backgroundColor: 'var(--primary-background)' }}>
