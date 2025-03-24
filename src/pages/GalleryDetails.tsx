@@ -116,10 +116,6 @@ That night was relaxed and laid-back. We strolled along the river, taking in the
       observer.disconnect();
     };
   }, [galleryImages.length]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
   
   const columnCount = getColumnCount();
   

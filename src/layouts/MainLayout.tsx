@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
+import ScrollToTop from '@/components/ScrollToTop';
 
 const MainLayout = () => {
   console.log("MainLayout rendering");
@@ -28,6 +29,7 @@ const MainLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full font-[Libre_Baskerville]">
+      <ScrollToTop />
       {/* Desktop Fixed Header - Hidden on mobile */}
       <header className="py-4 bg-[color:var(--primary-background)]">
         <div className="content-container">
