@@ -6,8 +6,13 @@ import OurStory from './pages/OurStory';
 import RSVP from './pages/RSVP';
 import Gallery from './pages/Gallery';
 import Registry from './pages/Registry';
+import RSVPResults from './pages/RSVPResults';
 
-const hashRouter = createHashRouter([
+// Check if in development mode
+const isDev = import.meta.env.DEV;
+
+// Define routes
+const routes = [
   {
     path: "/",
     element: <MainLayout />,
@@ -20,6 +25,13 @@ const hashRouter = createHashRouter([
       { path: "registry", element: <Registry /> },
     ],
   },
-]);
+];
+
+// Add admin route only in development mode
+if (isDev) {
+  routes[0].children.push({ path: "admin/rsvp-results", element: <RSVPResults /> });
+}
+
+const hashRouter = createHashRouter(routes);
 
 export default hashRouter; 

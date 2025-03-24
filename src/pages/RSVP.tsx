@@ -4,9 +4,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../components/ui/dialog";
 import MenuHoverCard from "@/components/ui/MenuHoverCard";
 import MusicSearch from "@/components/ui/MusicSearch";
+import { db } from "../config/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const RSVP = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -24,10 +28,25 @@ const RSVP = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      await addDoc(collection(db, "rsvps"), {
+        ...formData,
+        createdAt: serverTimestamp(),
+      });
+      
+      console.log("RSVP successfully submitted to Firestore");
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error("Error submitting RSVP:", err);
+      setError("提交失败，请稍后重试或联系我们。");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -184,8 +203,15 @@ const RSVP = () => {
             )}
           </CardContent>
           
-          <CardFooter>
-            <Button type="submit" className="w-full">提交</Button>
+          <CardFooter className="flex flex-col gap-2">
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <Button 
+              type="submit" 
+              className="w-full" 
+              disabled={isLoading}
+            >
+              {isLoading ? "提交中..." : "提交"}
+            </Button>
           </CardFooter>
         </form>
       </Card>
