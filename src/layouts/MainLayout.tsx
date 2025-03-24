@@ -19,7 +19,7 @@ const MainLayout = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Our Story", path: "/our-story" },
+    // { name: "Our Story", path: "/our-story" },
     { name: "Details", path: "/details" },
     { name: "Gallery", path: "/gallery" },
     { name: "RSVP", path: "/rsvp" },

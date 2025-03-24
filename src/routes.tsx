@@ -6,6 +6,7 @@ import OurStory from './pages/OurStory';
 import RSVP from './pages/RSVP';
 import Gallery from './pages/Gallery';
 import Registry from './pages/Registry';
+import GalleryDetails from './pages/GalleryDetails';
 
 // Get the base URL from Vite
 const baseUrl = import.meta.env.BASE_URL || '/';
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: "gallery", element: <Gallery /> },
       { path: "rsvp", element: <RSVP /> },
       { path: "registry", element: <Registry /> },
+      { path: "gallery/:location", element: <GalleryDetails /> },
     ],
   },
 ], {

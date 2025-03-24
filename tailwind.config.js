@@ -81,15 +81,36 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in-up": {
+          '0%': { opacity: '0', transform: 'translateY(40px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'carousel-fade-in': {
+          '0%': { 
+            opacity: '0.01', 
+            transform: 'scale(1) translateX(0) translateY(27.25px)' 
+          },
+          '100%': { 
+            opacity: '1', 
+            transform: 'scale(1) translateX(0) translateY(0)' 
+          },
+        },
       },
       animation: {
+        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'carousel-fade-in': 'carousel-fade-in 2000ms ease-out forwards',
       },
       fontFamily: {
         sans: ['Libre Baskerville', 'serif'],
         display: ['Libre Baskerville', 'serif'],
         heading: ['Libre Baskerville', 'serif'],
+      },
+      utilities: {
+        '.touch-manipulation': {
+          'touch-action': 'manipulation',
+        },
       },
     },
   },

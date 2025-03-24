@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import './ImageCarousel.css';
+import { cn } from '@/lib/utils';
 
 interface SimpleImageCarouselProps {
   images: string[];
@@ -8,6 +8,7 @@ interface SimpleImageCarouselProps {
   className?: string;
   autoPlay?: boolean;
   autoPlaySpeed?: number;
+  preloadCount?: number; // Number of images to preload on each side
 }
 
 const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
@@ -16,6 +17,7 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
   className = '',
   autoPlay = false,
   autoPlaySpeed = 5000,
+  preloadCount = 3, // Default to preloading 2 images on each side
 }) => {
   // Helper function to get images with wrap-around for building the buffer
   const getImageWithWrap = (index: number) => {
@@ -23,6 +25,9 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
     const wrappedIndex = ((index % images.length) + images.length) % images.length;
     return images[wrappedIndex];
   };
+  
+  // Number of buffer images at each end
+  const bufferCount = 3;
   
   // Create extended array with 3 clones at each end for smoother infinite scrolling
   const extendedImages = [
@@ -35,24 +40,35 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
     getImageWithWrap(2)
   ];
   
-  // Number of buffer images at each end
-  const bufferCount = 3;
-  
   const [currentIndex, setCurrentIndex] = useState(bufferCount); // Start at first real image (after buffer)
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const sliderRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   
-  // Set the width of each slide as a percentage (to show adjacent slides)
-  const slideWidth = 80; // Each slide takes 80% of the container width
+  // For touch/swipe handling
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+
+  // Add state to track if carousel is in viewport
+  const [isInView, setIsInView] = useState(false);
   
-  // Initialize to show the first real slide (not the clone)
+  // Initialize to show the first real slide and preload adjacent images
   useEffect(() => {
     if (sliderRef.current) {
       // Initially disable transitions so first slide appears instantly
       sliderRef.current.style.transition = 'none';
       setCurrentIndex(bufferCount);
+      
+      // Preload initial set of images
+      const initialImagesToLoad = new Set<number>();
+      for (let i = currentIndex - preloadCount; i <= currentIndex + preloadCount; i++) {
+        if (i >= 0 && i < extendedImages.length) {
+          initialImagesToLoad.add(i);
+        }
+      }
+      setLoadedImages(initialImagesToLoad);
       
       // Re-enable transitions after initial positioning
       setTimeout(() => {
@@ -62,7 +78,40 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
         }
       }, 50);
     }
-  }, [bufferCount]);
+  }, [bufferCount, preloadCount, extendedImages.length]);
+  
+  // Update loaded images when current index changes
+  useEffect(() => {
+    const newImagesToLoad = new Set(loadedImages);
+    
+    // Basic preloading around current index
+    for (let i = currentIndex - preloadCount; i <= currentIndex + preloadCount; i++) {
+      if (i >= 0 && i < extendedImages.length) {
+        newImagesToLoad.add(i);
+      }
+    }
+    
+    // Also preload the corresponding wrapped images to avoid jumps during loop transitions
+    if (currentIndex < bufferCount + preloadCount) {
+      // Near the beginning - also preload the corresponding end images
+      for (let i = 0; i < preloadCount; i++) {
+        const wrapIndex = images.length + bufferCount + (currentIndex - bufferCount) - i;
+        if (wrapIndex >= 0 && wrapIndex < extendedImages.length) {
+          newImagesToLoad.add(wrapIndex);
+        }
+      }
+    } else if (currentIndex >= bufferCount + images.length - preloadCount) {
+      // Near the end - also preload the corresponding beginning images
+      for (let i = 0; i < preloadCount; i++) {
+        const wrapIndex = bufferCount + ((currentIndex - bufferCount) % images.length) + i;
+        if (wrapIndex >= 0 && wrapIndex < extendedImages.length && wrapIndex < bufferCount + preloadCount) {
+          newImagesToLoad.add(wrapIndex);
+        }
+      }
+    }
+    
+    setLoadedImages(newImagesToLoad);
+  }, [currentIndex, preloadCount, extendedImages.length, images.length, bufferCount]);
 
   const handleSlideChange = (newIndex: number) => {
     if (isTransitioning) return;
@@ -146,25 +195,97 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
     slideRefs.current = slideRefs.current.slice(0, extendedImages.length);
   }, [extendedImages.length]);
 
+  // Handle swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setTouchEndX(null);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    
+    const swipeDistance = touchEndX - touchStartX;
+    const minSwipeDistance = 50; // Minimum distance to register as a swipe
+    
+    if (Math.abs(swipeDistance) > minSwipeDistance) {
+      if (swipeDistance > 0) {
+        // Swipe right -> go to previous slide
+        prevSlide();
+      } else {
+        // Swipe left -> go to next slide
+        nextSlide();
+      }
+    }
+    
+    // Reset touch coordinates
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
+  // Function to check if an image should be loaded
+  const shouldLoadImage = (idx: number) => {
+    return loadedImages.has(idx);
+  };
+
+  // Set up intersection observer to detect when carousel enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When carousel enters viewport, set isInView to true
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          // Once we've seen it, we can disconnect the observer
+          observer.disconnect();
+        }
+      },
+      {
+        // Start animation when 10% of the carousel is visible
+        threshold: 0.1,
+        // Add some rootMargin to trigger a bit earlier
+        rootMargin: '50px',
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div 
       ref={containerRef}
-      className={`carousel-slider pos-rel ${className}`} 
-      style={{ height }}
+      className={cn(
+        "w-full overflow-hidden relative", 
+        className, 
+        isInView ? 'animate-carousel-fade-in' : 'opacity-0'
+      )}
+      style={{ height }} 
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
-      <div className="carousel-slider--wrapper pos-rel w-full h-full overflow-visible">
+      <div className="relative w-full h-full overflow-visible">
         <div 
           ref={sliderRef}
           className="flex h-full"
           style={{ 
             width: `${extendedImages.length * 100}%`,
             transform: calculateTransform(),
-            transition: 'transform 500ms ease-in-out'
+            transition: 'transform 500ms ease-in-out' 
           }}
         >
           {extendedImages.map((image, idx) => {
             // Determine if this is a real slide or a buffer slide
             const isBuffer = idx < bufferCount || idx >= bufferCount + images.length;
+            const shouldLoad = shouldLoadImage(idx);
             
             return (
               <div 
@@ -174,23 +295,30 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
                 }}
                 className="flex-shrink-0 h-full flex items-center justify-center w-fit"
               >
-                <img 
-                  src={image} 
-                  alt={`Slide ${isBuffer ? 'buffer' : idx - bufferCount + 1}`}
-                  className="w-fit h-full object-contain" 
-                  aria-hidden={isBuffer ? 'true' : 'false'}
-                />
+                {shouldLoad ? (
+                  <img 
+                    src={image} 
+                    alt={`Slide ${isBuffer ? 'buffer' : idx - bufferCount + 1}`}
+                    className="h-full"
+                    aria-hidden={isBuffer ? 'true' : 'false'}
+                  />
+                ) : (
+                  <div 
+                    className="w-24 h-full bg-gray-200 flex items-center justify-center min-w-[200px]"
+                  >
+                    <div className="animate-pulse h-5 w-5 bg-gray-400 rounded-full"></div>
+                  </div>
+                )}
               </div>
             );
           })}
         </div>
       </div>
       
-      {/* Navigation Areas - Left 20% width */}
+      {/* Navigation Areas - Left 45% width */}
       <div 
         onClick={prevSlide}
-        className="absolute left-0 top-0 w-[20%] h-full flex items-center cursor-pointer z-10 transition-colors duration-300"
-        style={{ touchAction: 'manipulation' }}
+        className="absolute left-0 top-0 w-[45%] h-full flex items-center cursor-pointer z-10 transition-colors duration-300 opacity-0 hover:opacity-20 transition-opacity touch-manipulation"
         aria-label="Previous slide"
       >
         <div className="ml-4">
@@ -198,11 +326,10 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
         </div>
       </div>
       
-      {/* Navigation Areas - Right 20% width */}
+      {/* Navigation Areas - Right 45% width */}
       <div 
         onClick={nextSlide}
-        className="absolute right-0 top-0 w-[20%] h-full flex items-center justify-end cursor-pointer z-10 transition-colors duration-300"
-        style={{ touchAction: 'manipulation' }}
+        className="absolute right-0 top-0 w-[45%] h-full flex items-center justify-end cursor-pointer z-10 transition-colors duration-300 opacity-0 hover:opacity-20 transition-opacity touch-manipulation"
         aria-label="Next slide"
       >
         <div className="mr-4">

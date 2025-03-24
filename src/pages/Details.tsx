@@ -1,7 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { heroImages } from "@/lib/imageUtils";
 import { Container, Section, Grid, Flex, Heading } from "@radix-ui/themes";
-
+import { useMediaQuery } from "react-responsive";
 const Details = () => {
+  const isMobile = useMediaQuery(
+    {query: '(max-width: 768px)'}
+  );
   return (
     <Section size="3" className="w-full">
       <Container className="w-full">
@@ -16,7 +20,7 @@ const Details = () => {
                 </CardHeader>
                 <CardContent>
                   <p>2025年5月15日</p>
-                  <p>时间: [待定]</p>
+                  <p>时间: 4:20 PM</p>
                 </CardContent>
               </Card>
               
@@ -26,8 +30,7 @@ const Details = () => {
                 </CardHeader>
                 <CardContent>
                   <p>Grand Island Mansion</p>
-                  <p>California</p>
-                  <p className="mt-2">[地址详情]</p>
+                  <p className="mt-2">13415 Grand Island Rd, Walnut Grove, CA 95690</p>
                 </CardContent>
               </Card>
               
@@ -37,10 +40,14 @@ const Details = () => {
                 </CardHeader>
                 <CardContent>
                   <ul className="list-disc list-inside space-y-2">
-                    <li>仪式 - [时间]</li>
-                    <li>鸡尾酒会 - [时间]</li>
-                    <li>晚宴 - [时间]</li>
-                    <li>庆祝活动 - [时间]</li>
+                    <li>16:20 签到</li>
+                    <li>17:00 仪式</li>
+                    <li>17:30 大合照</li>
+                    <li>17:45 下午茶</li>
+                    <li>19:00 致辞 晚宴</li>
+                    <li>20:00 切蛋糕 甜品</li>
+                    <li>20:30 跳舞 派对</li>
+                    <li>22:00 结束</li>
                   </ul>
                 </CardContent>
               </Card>
@@ -50,7 +57,14 @@ const Details = () => {
                   <CardTitle>衣着建议</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>[衣着建议详情]</p>
+                  <p className="mb-2">"春日派对 / 碎花 / 优雅"</p>
+                  <p className="mb-2">建议穿着以下色系：</p>
+                  <p className="mb-4">香槟色 绿色 粉色 紫色</p>
+                  <p className="mb-4">我们会设置最佳着装奖投票，期待你的参与~</p>
+
+                  <h3 className="text-xl font-semibold mt-6 mb-2">小贴士</h3>
+                  <p className="mb-2">5月加州天气约为白天25°C，晚上15°C</p>
+                  <p className="mb-2">请做好防晒，准备一件外套保暖哦</p>
                 </CardContent>
               </Card>
               
@@ -67,6 +81,10 @@ const Details = () => {
           </Flex>
         </div>
       </Container>
+      <div className="flex justify-center items-center h-auto">
+        <img src={isMobile ? heroImages.ending : heroImages.endingDesktop} alt="Ending" className="w-full h-[70vh] object-cover" />
+      </div>
+
     </Section>
   );
 };

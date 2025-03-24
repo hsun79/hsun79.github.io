@@ -179,7 +179,7 @@ button,
   background-color: var(--button-background);
   cursor: pointer;
   transition: border-color 0.25s;
-  color: var(--button-text);
+  /* color: var(--button-text); */
 }
 button:hover,
 .button:hover,

@@ -90,7 +90,7 @@ const MenuHoverCard = ({}: MenuHoverCardProps) => {
               }}
               className="h-7 text-xs ghost-button w-[60px]"
             >
-              {language === 'en' ? 'CN' : 'EN'}
+              {language === 'en' ? '中文' : 'EN'}
             </Button>
           </div>
           <div className="space-y-3">
