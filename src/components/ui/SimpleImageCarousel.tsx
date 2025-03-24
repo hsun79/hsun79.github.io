@@ -248,7 +248,7 @@ const SimpleImageCarousel: React.FC<SimpleImageCarouselProps> = ({
                 <img 
                    src={image} 
                    alt={`Slide ${isBuffer ? 'buffer' : idx - bufferCount + 1}`}
-                   className="w-fit h-full object-contain" 
+                   className="h-full" 
                    aria-hidden={isBuffer ? 'true' : 'false'}
                  />
               </div>

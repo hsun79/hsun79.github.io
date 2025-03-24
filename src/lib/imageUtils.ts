@@ -1,8 +1,8 @@
 // Hero images
-import heroImage from "@/assets/images/home_desktop.jpg";
+import heroImage from "@/assets/images/home_desktop.webp";
 import heroImageMobile from "@/assets/images/home_mobile.jpg";
-import heroImageEnding from "@/assets/images/home_ending.jpg";
-import heroImageEndingDesktop from "@/assets/images/home_ending_desktop.jpg";
+import heroImageEnding from "@/assets/images/home_ending.webp";
+import heroImageEndingDesktop from "@/assets/images/home_ending_desktop.webp";
 
 // Banff Images
 import Banff1 from "@/assets/images/banff/Banff1.jpg";
