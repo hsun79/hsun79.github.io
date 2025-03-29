@@ -10,11 +10,11 @@ import { useState, useEffect } from "react";
 // You can create a Logo component or use an image
 const Logo = () => (
   <div className="text-center px-4 py-8 bg-black bg-opacity-20 backdrop-blur-sm rounded-lg">
-    <h1 className="text-5xl md:text-6xl libre-baskerville-regular tracking-wider text-white mb-4 drop-shadow-lg">
+    <div className="text-3xl md:text-5xl font-bold libre-baskerville-regular tracking-wider text-white mb-4 drop-shadow-lg">
       Kristen & Hao
-    </h1>
-    <p className="text-lg md:text-xl tracking-wide text-white drop-shadow-md">
-      May 15, 2025 • Grand Island Mansion, California
+    </div>
+    <p className="text-md md:text-lg tracking-wide text-white drop-shadow-md">
+      May 15, 2025 <br /> Grand Island Mansion, California
     </p>
     <div className="mt-8">
       <Link to="/rsvp">

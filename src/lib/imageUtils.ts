@@ -40,6 +40,7 @@ import LA16 from "@/assets/images/la/LA16.jpg";
 import LA17 from "@/assets/images/la/LA17.jpg";
 import LA18 from "@/assets/images/la/LA18.jpg";
 import LA19 from "@/assets/images/la/LA19.jpg";
+import LACover from "@/assets/images/la/LA_cover.jpg";
 
 // PA (Pennsylvania) Images
 import PA1 from "@/assets/images/pa/PA1.jpg";
@@ -83,6 +84,11 @@ import PAN10 from "@/assets/images/pan/PAN10.jpg";
 import PAN11 from "@/assets/images/pan/PAN11.jpg";
 import PAN12 from "@/assets/images/pan/PAN12.jpg";
 import PAN13 from "@/assets/images/pan/PAN13.jpg";
+import PAN14 from "@/assets/images/pan/PAN14.jpg";
+import PAN15 from "@/assets/images/pan/PAN15.jpg";
+import PAN16 from "@/assets/images/pan/PAN16.jpg";
+import PAN17 from "@/assets/images/pan/PAN17.jpg";
+
 // TO Images
 import TO1 from "@/assets/images/to/TO1.jpg";
 import TO2 from "@/assets/images/to/TO2.jpg";
@@ -137,7 +143,7 @@ export const paImages = [
 
 export const panImages = [
   PAN1, PAN2, PAN3, PAN4, PAN5, PAN6, 
-  PAN7, PAN8, PAN9, PAN10, PAN11, PAN12, PAN13
+  PAN7, PAN8, PAN9, PAN10, PAN11, PAN12, PAN13, PAN14, PAN15, PAN16, PAN17
 ];
 
 export const toImages = [
@@ -199,3 +205,4 @@ export const featuredCollection = [
 ]; 
 
 export const venmoQR = VenmoQR;
+export const laCover = LACover;

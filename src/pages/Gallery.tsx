@@ -1,6 +1,6 @@
 import { Heading, Text, Section, Flex, Box } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
-import { imageCollections } from "@/lib/imageUtils";
+import { imageCollections, laCover } from "@/lib/imageUtils";
 import { useMediaQuery } from "react-responsive";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,7 @@ const Gallery = () => {
   const collections = [
     { slug: "banff", title: "A Sunrise Promise", description: "Banff, July 2022" },
     { slug: "to", title: "A Backyard Wedding", description: "Toronto, September 2022" },
-    { slug: "la", title: "Disney, Makeup, and Food Adventures", description: "LA, September 2023" },
+    { slug: "la", title: "Disney, Makeup, and Food Adventures", description: "LA, September 2023", cover: laCover },
     { slug: "pa", title: "Photos, Pillars, and an Unforgettable Road Trip", description: "Paris, September 2024" },
     { slug: "pan", title: "Marathon, Pho, and the Eiffel Tower", description: "Paris, September 2024" },
   ];
@@ -125,7 +125,7 @@ const Gallery = () => {
                       >
                         {photoCollection.images && photoCollection.images.length > 0 ? (
                           <img 
-                            src={photoCollection.images[0]} 
+                            src={collection.cover || photoCollection.images[0]} 
                             alt={collection.title}
                             className="w-full h-full object-cover max-h-[680px]"
                           />
@@ -137,7 +137,7 @@ const Gallery = () => {
                       </Box>
                     </Link>
                     <Text size="2" mt="2" align="center" className="text-gray-500">
-                      {photoCollection.images.length} 张照片
+                      {photoCollection.images.length} photos
                     </Text>
                   </Box>
                 </Flex>
